@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import twitterimg from "../../image/twitter.jpeg";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -17,7 +17,7 @@ const Signup = () => {
   const [password, setpassword] = useState("");
   const [showUsernameModal, setShowUsernameModal] = useState(false);
   const [pendingUserData, setPendingUserData] = useState(null);
-  const { signUp, user } = useUserAuth();
+  const { signUp } = useUserAuth();
   const { googleSignIn } = useUserAuth();
   const navigate = useNavigate();
 
