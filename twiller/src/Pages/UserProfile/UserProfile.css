@@ -1,0 +1,229 @@
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: var(--primary-bg, #000);
+  color: var(--text-color, #e7e9ea);
+  border-left: 1px solid var(--border-color, #2f3336);
+  border-right: 1px solid var(--border-color, #2f3336);
+  min-height: 100vh;
+}
+
+.profile-header {
+  position: relative;
+}
+
+.profile-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0 16px;
+  height: 53px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color, #2f3336);
+}
+
+.back-btn {
+  margin-right: 32px !important;
+  width: 34px !important;
+  height: 34px !important;
+  color: var(--text-color, #e7e9ea) !important;
+}
+
+.back-btn:hover {
+  background-color: rgba(231, 233, 234, 0.1) !important;
+}
+
+.profile-nav-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-nav-name {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 24px;
+  margin: 0;
+}
+
+.profile-nav-posts {
+  font-size: 13px;
+  color: var(--text-secondary, #71767b);
+  line-height: 16px;
+}
+
+.cover-photo {
+  height: 200px;
+  background-color: var(--border-color, #2f3336);
+  position: relative;
+}
+
+.cover-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 12px 16px 0;
+  margin-top: -60px;
+}
+
+.profile-avatar {
+  border: 4px solid var(--primary-bg, #000);
+  border-radius: 50%;
+  margin-bottom: 12px;
+}
+
+.profile-actions {
+  margin-top: 60px;
+  margin-bottom: 12px;
+}
+
+.follow-btn, .unfollow-btn {
+  border-radius: 20px !important;
+  padding: 0 16px !important;
+  height: 36px !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  line-height: 20px !important;
+  text-transform: none !important;
+  transition: all 0.2s !important;
+  min-width: 108px !important;
+}
+
+.follow-btn {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid transparent !important;
+}
+
+.follow-btn:hover {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.unfollow-btn {
+  background-color: transparent !important;
+  border: 1px solid var(--border-color, #536471) !important;
+  color: var(--text-color, #e7e9ea) !important;
+}
+
+.unfollow-btn:hover {
+  background-color: rgba(244, 33, 46, 0.1) !important;
+  border-color: rgba(244, 33, 46, 0.4) !important;
+  color: #f4212e !important;
+}
+
+.unfollow-btn:hover::after {
+  content: "Unfollow";
+}
+
+.unfollow-btn:hover .MuiButton-label {
+  display: none;
+}
+
+.profile-details {
+  padding: 4px 16px 0;
+}
+
+.profile-name {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 24px;
+  margin: 0 0 4px 0;
+}
+
+.profile-username {
+  color: var(--text-secondary, #71767b);
+  font-size: 15px;
+  line-height: 20px;
+  margin: 0 0 12px 0;
+}
+
+.profile-bio {
+  font-size: 15px;
+  line-height: 20px;
+  margin: 0 0 12px 0;
+  word-wrap: break-word;
+}
+
+.profile-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: var(--text-secondary, #71767b);
+  margin-bottom: 12px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.profile-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.profile-follow-stats {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.profile-follow-stats span {
+  color: var(--text-secondary, #71767b);
+  font-size: 14px;
+  line-height: 16px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.profile-follow-stats span:hover {
+  color: var(--text-color, #e7e9ea);
+  text-decoration: underline;
+}
+
+.profile-follow-stats span strong {
+  color: var(--text-color, #e7e9ea);
+  font-weight: 700;
+}
+
+.profile-website {
+  color: var(--twitter-color, #1d9bf0);
+  text-decoration: none;
+}
+
+.profile-website:hover {
+  text-decoration: underline;
+}
+
+.section-title {
+  padding: 16px;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 24px;
+  border-bottom: 1px solid var(--border-color, #2f3336);
+  border-top: 1px solid var(--border-color, #2f3336);
+}
+
+.profile-posts {
+  /* No additional border needed since section-title has it */
+}
+
+.empty-posts {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--secondary-text);
+}
+
+.loading, .not-found {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-color);
+}

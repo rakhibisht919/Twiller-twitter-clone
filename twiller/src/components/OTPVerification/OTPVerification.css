@@ -1,0 +1,100 @@
+.otp-verification-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 32px;
+  background-color: var(--primary-bg);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+}
+
+.otp-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.email-icon {
+  font-size: 48px !important;
+  color: var(--twitter-color);
+  margin-bottom: 16px;
+}
+
+.otp-title {
+  color: var(--text-color);
+  margin-bottom: 8px !important;
+  font-weight: 600 !important;
+}
+
+.otp-alert {
+  margin-bottom: 16px;
+}
+
+.otp-input-section {
+  margin-bottom: 24px;
+}
+
+.otp-input {
+  margin-bottom: 12px !important;
+}
+
+.otp-input input {
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 4px;
+  font-weight: 600;
+}
+
+.timer-text {
+  text-align: center;
+  color: var(--text-secondary) !important;
+}
+
+.expired-text {
+  color: var(--error-color) !important;
+  font-weight: 600;
+}
+
+.otp-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.verify-btn {
+  background-color: var(--twitter-color) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+}
+
+.verify-btn:hover {
+  background-color: var(--twitter-hover) !important;
+}
+
+.resend-btn {
+  border-color: var(--twitter-color) !important;
+  color: var(--twitter-color) !important;
+  padding: 10px !important;
+  border-radius: 8px !important;
+}
+
+.cancel-btn {
+  color: var(--text-secondary) !important;
+  padding: 8px !important;
+}
+
+@media screen and (max-width: 480px) {
+  .otp-verification-container {
+    padding: 24px 16px;
+    margin: 0 16px;
+  }
+  
+  .email-icon {
+    font-size: 40px !important;
+  }
+  
+  .otp-title {
+    font-size: 1.3rem !important;
+  }
+}

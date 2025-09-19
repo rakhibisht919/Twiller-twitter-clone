@@ -1,0 +1,61 @@
+.terms-page {
+  min-height: 100vh;
+  background-color: var(--primary-bg);
+}
+
+.terms-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgb(239, 243, 244);
+  padding: 16px;
+}
+
+.terms-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 16px;
+  line-height: 1.6;
+}
+
+.terms-section {
+  margin-bottom: 32px;
+}
+
+.terms-section h3 {
+  color: rgb(15, 20, 25);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.terms-section p {
+  color: rgb(83, 100, 113);
+  margin-bottom: 12px;
+}
+
+.terms-intro {
+  background-color: rgb(247, 249, 249);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+}
+
+.terms-footer {
+  background-color: rgb(247, 249, 249);
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .terms-content {
+    padding: 16px 12px;
+  }
+  
+  .terms-section {
+    margin-bottom: 24px;
+  }
+}

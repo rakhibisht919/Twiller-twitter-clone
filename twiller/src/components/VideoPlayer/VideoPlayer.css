@@ -1,0 +1,403 @@
+.video-player-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --twitter-color: #1da1f2;
+  --twitter-background: #e6ecf0;
+  --twitter-dark-background: #15202b;
+  --twitter-light-text: #8899a6;
+  --twitter-border: #38444d;
+}
+
+.video-player {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.gesture-areas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  z-index: 2;
+}
+
+.gesture-area {
+  flex: 1;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gesture-area.left {
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+}
+
+.gesture-area.right {
+  background: linear-gradient(270deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+}
+
+.gesture-area:active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 20px;
+  z-index: 3;
+  transition: opacity 0.3s ease;
+}
+
+.progress-container {
+  margin-bottom: 15px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--twitter-color);
+  border-radius: 2px;
+  transition: width 0.1s ease;
+}
+
+.control-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.control-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.control-btn svg {
+  font-size: 24px;
+}
+
+.time-display {
+  color: white;
+  font-size: 14px;
+  margin-left: auto;
+  margin-right: 15px;
+}
+
+.gesture-hints {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.video-player-container:hover .gesture-hints {
+  opacity: 1;
+}
+
+.hint {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  text-align: center;
+  max-width: 120px;
+}
+
+.left-hint {
+  align-self: flex-start;
+}
+
+.center-hint {
+  align-self: center;
+}
+
+.right-hint {
+  align-self: flex-end;
+}
+
+/* Keyboard Shortcuts Info */
+.keyboard-shortcuts-info {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 7;
+}
+
+.keyboard-info-btn {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.keyboard-info-btn:hover {
+  background-color: rgba(29, 161, 242, 0.8);
+}
+
+/* Feedback Overlay */
+.feedback-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.feedback-message {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  animation: fadeInOut 0.8s ease;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: scale(0.8); }
+  20% { opacity: 1; transform: scale(1.1); }
+  40% { opacity: 1; transform: scale(1); }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Buffering Overlay */
+.buffering-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--twitter-color);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Comments Section */
+.comments-section {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.comments-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 1px solid var(--twitter-border);
+}
+
+.comments-header h3 {
+  color: white;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.comments-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+}
+
+.comment {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.comment-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--twitter-color);
+  margin-right: 12px;
+}
+
+.comment-body {
+  flex: 1;
+}
+
+.comment-user {
+  font-weight: bold;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.comment-text {
+  color: var(--twitter-light-text);
+  line-height: 1.4;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .video-player-container {
+    border-radius: 0;
+    max-width: 100%;
+  }
+  
+  .video-controls {
+    padding: 15px;
+  }
+  
+  .control-btn svg {
+    font-size: 20px;
+  }
+  
+  .time-display {
+    font-size: 12px;
+  }
+  
+  .gesture-hints {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+  }
+  
+  .hint {
+    font-size: 10px;
+    padding: 6px 8px;
+    max-width: 100px;
+  }
+  
+  .feedback-message {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+  
+  .comments-section {
+    width: 100%;
+    top: auto;
+    height: 60%;
+  }
+  
+  .keyboard-info-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  
+  .keyboard-shortcuts-info {
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .control-buttons {
+    gap: 10px;
+  }
+  
+  .control-btn {
+    padding: 6px;
+  }
+  
+  .control-btn svg {
+    font-size: 18px;
+  }
+  
+  .feedback-message {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  
+  .keyboard-info-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  
+  .keyboard-shortcuts-info {
+    bottom: 12px;
+    right: 12px;
+  }
+}

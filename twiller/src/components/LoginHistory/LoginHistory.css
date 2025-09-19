@@ -1,0 +1,82 @@
+.login-history-card {
+  margin: 16px 0;
+  background-color: var(--primary-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 12px !important;
+}
+
+.history-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-color) !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+}
+
+.history-subtitle {
+  color: var(--text-secondary) !important;
+  margin-bottom: 16px !important;
+}
+
+.no-history {
+  text-align: center;
+  padding: 32px;
+  color: var(--text-secondary) !important;
+}
+
+.history-list {
+  padding: 0 !important;
+}
+
+.history-item {
+  padding: 16px 0 !important;
+}
+
+.history-primary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.device-info {
+  color: var(--text-color) !important;
+  font-weight: 500 !important;
+}
+
+.browser-chip {
+  font-size: 0.75rem !important;
+}
+
+.history-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.timestamp,
+.ip-address,
+.timezone {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-secondary) !important;
+}
+
+.timestamp svg,
+.ip-address svg {
+  font-size: 14px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .history-primary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .history-secondary {
+    font-size: 0.75rem;
+  }
+}

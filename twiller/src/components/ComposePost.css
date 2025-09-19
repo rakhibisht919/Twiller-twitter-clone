@@ -1,0 +1,211 @@
+/* Fullscreen overlay */ 
+.compose-modal { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100vw; 
+  height: 100vh; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  z-index: 9999; 
+} 
+
+/* Dark background behind modal */ 
+.compose-modal-backdrop { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  background: rgba(0, 0, 0, 0.6); 
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+} 
+
+/* Modal box */ 
+.compose-modal-content {
+  position: relative;
+  background: #15202b; /* Twitter dark mode background */
+  border-radius: 16px;
+  width: 100%;
+  max-width: 600px;
+  z-index: 10000;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+  display: flex;
+  flex-direction: column;
+  animation: modalSlideIn 0.2s ease-out;
+  overflow: hidden;
+  margin-top: 40px;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */ 
+.compose-modal-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 1px solid #38444d;
+}
+
+.modal-title {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+  color: #e7e9ea;
+}
+
+/* Close button */ 
+.close-btn { 
+  background: none; 
+  border: none; 
+  cursor: pointer; 
+  color: #e7e9ea; 
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 
+
+.close-btn:hover {
+  background-color: rgba(239, 243, 244, 0.1);
+}
+
+/* Body */ 
+.compose-modal-body { 
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+} 
+
+.compose-content { 
+  display: flex; 
+  gap: 12px; 
+  padding: 16px; 
+} 
+
+.user-avatar { 
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+} 
+
+.compose-input-section {
+  flex: 1;
+  min-height: 120px;
+}
+
+/* Textarea */ 
+.compose-textarea { 
+  width: 100%; 
+  font-size: 20px; 
+  resize: none; 
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #e7e9ea;
+  line-height: 28px;
+  min-height: 120px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+} 
+
+.compose-textarea::placeholder {
+  color: #71767b;
+  opacity: 0.8;
+}
+
+/* Footer */ 
+.compose-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  border-top: 1px solid #38444d; /* Softer Twitter border */
+} 
+
+/* Toolbar */ 
+.action-buttons { 
+  display: flex; 
+  gap: 16px; 
+  align-items: center;
+} 
+
+.action-btn { 
+  background: none; 
+  border: none; 
+  cursor: pointer; 
+  color: #1d9bf0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 
+
+.action-btn:hover {
+  background-color: rgba(29, 155, 240, 0.1);
+}
+
+.location-icon {
+  color: #1d9bf0;
+  cursor: pointer;
+}
+
+/* Character count */ 
+.character-count { 
+  font-size: 14px; 
+  margin-right: 12px; 
+  color: #71767b; 
+} 
+
+.character-count.over-limit { 
+  color: #f4212e; 
+} 
+
+/* Post button */ 
+.post-btn {
+  background-color: #1d9bf0;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 6px 16px; 
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 15px;
+} 
+
+.post-btn:hover {
+  background-color: #1a8cd8;
+}
+
+.post-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.compose-actions {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .compose-modal-content {
+    max-width: 95vw;
+    margin: 0 10px;
+    border-radius: 16px;
+  }
+}

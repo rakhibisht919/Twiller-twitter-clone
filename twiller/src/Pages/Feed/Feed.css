@@ -1,24 +1,105 @@
 .feed {
-    flex: 0.4;
-    border-right: 1px solid var(--twitter-background);
-    min-width: fit-content;
-    overflow-y: scroll;
+  flex: 0.4;
+  border-right: 1px solid var(--border-color);
+  min-width: 0;
+  overflow-y: auto;
+  background-color: var(--primary-bg);
+  max-width: 600px;
+  transition: background-color 0.3s ease;
+}
+
+.feed::-webkit-scrollbar {
+  display: none;
+}
+
+.feed__header {
+  position: sticky;
+  top: 0;
+  background-color: var(--primary-bg);
+  z-index: 100;
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background-color 0.3s ease;
+}
+
+.feed__header > h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.loading-message,
+.error-message,
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--secondary-text, #536471);
+  border-bottom: 1px solid var(--border-color, #eff3f4);
+}
+
+[data-theme="dark"] .loading-message,
+[data-theme="dark"] .error-message,
+[data-theme="dark"] .empty-state {
+  color: #71767b;
+  border-bottom-color: #2f3336;
+}
+
+.error-message {
+  background-color: rgba(244, 33, 46, 0.1);
+  border: 1px solid rgba(244, 33, 46, 0.2);
+  border-radius: 8px;
+  margin: 16px;
+}
+
+.retry-button:hover {
+  background-color: #1a8cd8 !important;
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+.empty-state {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.empty-state p {
+  margin: 0;
+}
+
+.loading-message p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  margin: 0;
+}
+
+.error-message p {
+  color: var(--error-color);
+  font-size: 14px;
+  margin: 0;
+  background-color: var(--secondary-bg);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+@media screen and (max-width: 1024px) {
+  .feed {
+    flex: 0.5;
+    max-width: none;
   }
-  
-  .feed::-webkit-scrollbar {
-    display: none;
+}
+
+@media screen and (max-width: 688px) {
+  .feed {
+    flex: 1;
+    border-right: none;
+    max-width: none;
   }
   
   .feed__header {
-    position: sticky;
-    top: 0;
-    background-color: white;
-    z-index: 100;
-    border: 1px solid var(--twitter-background);
-    padding: 15px 20px;
+    padding: 12px 16px;
   }
-  
-  .feed__header>h2 {
-    font-size: 20px;
-    font-weight: 800;
-  }
+}

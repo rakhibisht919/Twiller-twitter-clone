@@ -149,3 +149,33 @@
   .last-section>.last-btn:hover {
     background-color: #b4b7b9
   }
+  
+  /* Error and Success Messages */
+  .error-message {
+    background-color: #fee;
+    color: #c33;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #fcc;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .success-message {
+    background-color: #efe;
+    color: #363;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #cfc;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  /* Enhanced Text Fields */
+  .text-field .MuiFormHelperText-root {
+    color: #666;
+    font-size: 12px;
+    text-align: right;
+  }

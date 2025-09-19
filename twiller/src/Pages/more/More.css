@@ -1,0 +1,111 @@
+.more-page {
+  background: var(--primary-bg);
+  min-height: 100vh;
+  border-right: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+}
+
+.more-header {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--primary-bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.back-button {
+  color: var(--text-color) !important;
+  margin-right: 16px !important;
+  padding: 8px !important;
+}
+
+.back-button:hover {
+  background-color: var(--hover-color) !important;
+}
+
+.more-title {
+  font-weight: 700 !important;
+  color: var(--text-color) !important;
+  font-size: 20px !important;
+}
+
+.more-content {
+  padding: 0;
+}
+
+.more-menu {
+  padding: 0 !important;
+}
+
+.more-menu-item {
+  padding: 16px 20px !important;
+  transition: background-color 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+.more-menu-item:hover {
+  background-color: var(--hover-color) !important;
+}
+
+.more-menu-icon {
+  color: var(--text-color) !important;
+  min-width: 56px !important;
+}
+
+.more-menu-icon .MuiSvgIcon-root {
+  font-size: 24px !important;
+}
+
+.more-menu-text {
+  font-size: 20px !important;
+  font-weight: 400 !important;
+  color: var(--text-color) !important;
+  line-height: 1.25 !important;
+}
+
+.more-menu-description {
+  font-size: 15px !important;
+  color: var(--secondary-text) !important;
+  line-height: 1.25 !important;
+  margin-top: 2px !important;
+}
+
+.MuiDivider-root {
+  border-color: var(--border-color) !important;
+}
+
+/* Dark theme support */
+[data-theme="dark"] .more-page {
+  background: #15202b;
+}
+
+[data-theme="dark"] .more-header {
+  background: #15202b;
+  border-bottom-color: #38444d;
+}
+
+[data-theme="dark"] .more-menu-item:hover {
+  background-color: #1e2732 !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .more-header {
+    padding: 12px 16px;
+  }
+  
+  .more-menu-item {
+    padding: 12px 16px !important;
+  }
+  
+  .more-menu-text {
+    font-size: 18px !important;
+  }
+  
+  .more-menu-description {
+    font-size: 14px !important;
+  }
+}

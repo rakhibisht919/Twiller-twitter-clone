@@ -1,33 +1,95 @@
 .sidebarOptions {
-    display: flex;
-    align-items: center;
-    padding-bottom: 5px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin: 2px 0;
+  cursor: pointer;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: rgb(15, 20, 25);
+  font-weight: 400;
+}
+
+.sidebarOptions:hover {
+  background-color: rgba(15, 20, 25, 0.1);
+  color: rgb(15, 20, 25);
+}
+
+.sidebarOptions--active {
+  font-weight: 700;
+}
+
+.sidebarOptions--active .MuiSvgIcon-root {
+  color: rgb(15, 20, 25);
+}
+
+.sidebarOptions > .MuiSvgIcon-root {
+  font-size: 26px !important;
+  margin-right: 20px;
+  color: rgb(15, 20, 25);
+}
+
+.sidebarOptions > h2 {
+  font-weight: inherit;
+  font-size: 20px;
+  margin: 0;
+  line-height: 24px;
+}
+
+.done__icon {
+  color: rgb(29, 155, 240) !important;
+}
+
+/* Dark theme support */
+[data-theme="dark"] .sidebarOptions {
+  color: rgb(231, 233, 234);
+}
+
+[data-theme="dark"] .sidebarOptions:hover {
+  background-color: rgba(231, 233, 234, 0.1);
+  color: rgb(231, 233, 234);
+}
+
+[data-theme="dark"] .sidebarOptions > .MuiSvgIcon-root {
+  color: rgb(231, 233, 234);
+}
+
+[data-theme="dark"] .sidebarOptions--active .MuiSvgIcon-root {
+  color: rgb(231, 233, 234);
+}
+
+/* Responsive design */
+@media screen and (max-width: 1200px) {
+  .sidebarOptions > h2 {
+    display: none;
   }
   
-  .sidebarOptions:hover {
-    background-color: #e8f5fe;
-    border-radius: 30px;
-    color: var(--twitter-color);
-    transition: color 100ms ease-out;
+  .sidebarOptions {
+    padding: 12px;
+    justify-content: center;
   }
   
-  .sidebarOptions>.MuiSvgIcon-root {
-    padding: 10px 15px;
+  .sidebarOptions > .MuiSvgIcon-root {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 688px) {
+  .sidebarOptions {
+    padding: 8px;
+    margin: 0;
+    border-radius: 0;
+    flex: 1;
+    justify-content: center;
   }
   
-  .sidebarOptions>h2 {
-    font-weight: 600;
-    font-size: 18px;
-    margin-right: 20px;
+  .sidebarOptions > .MuiSvgIcon-root {
+    font-size: 24px !important;
+    margin-right: 0;
   }
   
-  .done__icon {
-    color: var(--twitter-color) !important;
+  .sidebarOptions > h2 {
+    display: none;
   }
-  
-  @media screen and (max-width:688px) {
-    .sidebar__tweet {
-      display: none;
-    }
-  }
+}

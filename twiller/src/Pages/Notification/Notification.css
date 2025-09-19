@@ -1,0 +1,166 @@
+.notification-page {
+  padding: 16px;
+  background-color: var(--primary-bg);
+  min-height: 100vh;
+}
+
+.notification-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-color);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notification-item {
+  background-color: var(--primary-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 12px !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: none !important;
+}
+
+.notification-item:hover {
+  background-color: var(--hover-color) !important;
+  border-color: var(--twitter-color) !important;
+}
+
+.notification-item.unread {
+  border-left: 4px solid var(--twitter-color) !important;
+  background-color: var(--secondary-bg) !important;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px !important;
+}
+
+.notification-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--secondary-bg);
+}
+
+.notification-icon {
+  font-size: 18px !important;
+}
+
+.like-icon {
+  color: var(--error-color) !important;
+}
+
+.retweet-icon {
+  color: var(--success-color) !important;
+}
+
+.reply-icon {
+  color: var(--twitter-color) !important;
+}
+
+.follow-icon {
+  color: var(--warning-color) !important;
+}
+
+.notification-avatar {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.notification-details {
+  flex: 1;
+}
+
+.notification-text {
+  color: var(--text-color) !important;
+  margin-bottom: 4px !important;
+}
+
+.notification-time {
+  color: var(--text-secondary) !important;
+}
+
+.new-badge {
+  background-color: var(--twitter-color) !important;
+  color: white !important;
+  font-size: 0.75rem !important;
+}
+
+.empty-notifications {
+  background-color: var(--primary-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 16px !important;
+  text-align: center;
+  padding: 32px !important;
+  box-shadow: none !important;
+}
+
+.empty-title {
+  color: var(--text-color) !important;
+  margin-bottom: 8px !important;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .notification-page {
+    padding: 12px;
+  }
+  
+  .notification-content {
+    padding: 12px !important;
+    gap: 8px;
+  }
+  
+  .notification-avatar {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  
+  .notification-icon-container {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .notification-icon {
+    font-size: 16px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .notification-page {
+    padding: 8px;
+  }
+  
+  .page-title {
+    font-size: 1.3rem;
+  }
+  
+  .notification-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .notification-details {
+    width: 100%;
+  }
+}

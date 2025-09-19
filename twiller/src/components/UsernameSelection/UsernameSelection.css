@@ -1,0 +1,230 @@
+.username-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.username-modal-content {
+  background: var(--primary-bg);
+  border-radius: 16px;
+  width: 600px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.username-modal-header {
+  display: flex;
+  justify-content: flex-start;
+  padding: 16px 20px 0;
+}
+
+.close-btn {
+  color: var(--text-color) !important;
+  padding: 8px !important;
+}
+
+.close-btn:hover {
+  background-color: var(--hover-color) !important;
+}
+
+.username-modal-body {
+  padding: 20px 80px 40px;
+  text-align: center;
+}
+
+.twitter-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+  color: var(--twitter-color);
+}
+
+.username-modal-title {
+  font-size: 31px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.username-modal-subtitle {
+  font-size: 15px;
+  color: var(--secondary-text);
+  margin: 0 0 32px 0;
+  line-height: 1.3;
+}
+
+.username-suggestions {
+  margin-bottom: 24px;
+}
+
+.username-suggestion {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--primary-bg);
+}
+
+.username-suggestion:hover {
+  border-color: var(--twitter-color);
+  background: var(--hover-color);
+}
+
+.username-suggestion.selected {
+  border-color: var(--twitter-color);
+  background: rgba(29, 155, 240, 0.1);
+}
+
+.username-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.username-text {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+.check-icon {
+  color: var(--twitter-color);
+  font-size: 20px;
+}
+
+.custom-username-section {
+  margin-bottom: 32px;
+}
+
+.custom-username-input {
+  margin-top: 8px;
+}
+
+.custom-username-input .MuiOutlinedInput-root {
+  border-radius: 8px;
+  background: var(--primary-bg);
+}
+
+.custom-username-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--twitter-color);
+}
+
+.custom-username-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--twitter-color);
+}
+
+.username-prefix {
+  color: var(--secondary-text);
+  font-size: 15px;
+  margin-right: 4px;
+}
+
+.custom-username-input .MuiFormHelperText-root {
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.custom-username-input .MuiFormHelperText-root.Mui-error {
+  color: #f4212e;
+}
+
+.username-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.skip-btn {
+  color: var(--text-color) !important;
+  font-weight: 700 !important;
+  padding: 12px 24px !important;
+  border-radius: 20px !important;
+  text-transform: none !important;
+  font-size: 15px !important;
+}
+
+.skip-btn:hover {
+  background-color: var(--hover-color) !important;
+}
+
+.next-btn {
+  background-color: var(--text-color) !important;
+  color: var(--primary-bg) !important;
+  font-weight: 700 !important;
+  padding: 12px 32px !important;
+  border-radius: 20px !important;
+  text-transform: none !important;
+  font-size: 15px !important;
+  min-width: 80px !important;
+}
+
+.next-btn:hover:not(:disabled) {
+  background-color: rgba(15, 20, 25, 0.9) !important;
+}
+
+.next-btn:disabled {
+  background-color: var(--border-color) !important;
+  color: var(--secondary-text) !important;
+  cursor: not-allowed !important;
+}
+
+/* Dark theme support */
+[data-theme="dark"] .username-modal-content {
+  background: #15202b;
+}
+
+[data-theme="dark"] .username-suggestion {
+  background: #15202b;
+  border-color: #38444d;
+}
+
+[data-theme="dark"] .username-suggestion:hover {
+  background: #1e2732;
+}
+
+[data-theme="dark"] .username-suggestion.selected {
+  background: rgba(29, 155, 240, 0.1);
+  border-color: var(--twitter-color);
+}
+
+[data-theme="dark"] .next-btn {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+[data-theme="dark"] .next-btn:hover:not(:disabled) {
+  background-color: #e7e7e8 !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .username-modal-content {
+    width: 95vw;
+    margin: 20px;
+  }
+  
+  .username-modal-body {
+    padding: 20px 32px 32px;
+  }
+  
+  .username-modal-title {
+    font-size: 23px;
+  }
+  
+  .username-modal-actions {
+    flex-direction: column-reverse;
+    gap: 16px;
+  }
+  
+  .skip-btn,
+  .next-btn {
+    width: 100%;
+  }
+}

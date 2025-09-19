@@ -65,31 +65,107 @@ function Editchild({ dob, setdob }) {
 }
 
 const Editprofile = ({ user, loggedinuser }) => {
-  const [name, setname] = useState("");
-  const [bio, setbio] = useState("");
-  const [location, setlocation] = useState("");
-  const [website, setwebsite] = useState("");
+  const [name, setname] = useState(loggedinuser[0]?.name || "");
+  const [username, setusername] = useState(loggedinuser[0]?.username || "");
+  const [bio, setbio] = useState(loggedinuser[0]?.bio || "");
+  const [location, setlocation] = useState(loggedinuser[0]?.location || "");
+  const [website, setwebsite] = useState(loggedinuser[0]?.website || "");
   const [open, setopen] = useState(false);
-  const [dob, setdob] = useState("");
-  const handlesave = () => {
+  const [dob, setdob] = useState(loggedinuser[0]?.dob || "");
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState("");
+  const [success, setsuccess] = useState("");
+  const handlesave = async () => {
+    setloading(true);
+    seterror("");
+    setsuccess("");
+    
+    // Validation
+    if (name.trim().length < 1) {
+      seterror("Name is required");
+      setloading(false);
+      return;
+    }
+    
+    if (username.trim().length < 3) {
+      seterror("Username must be at least 3 characters");
+      setloading(false);
+      return;
+    }
+    
+    // Check for valid username format (alphanumeric and underscores only)
+    const usernameRegex = /^[a-zA-Z0-9_]+$/;
+    if (!usernameRegex.test(username)) {
+      seterror("Username can only contain letters, numbers, and underscores");
+      setloading(false);
+      return;
+    }
+    
     const editinfo = {
-      name,
-      bio,
-      location,
-      website,
+      name: name.trim(),
+      username: username.trim().toLowerCase(),
+      bio: bio.trim(),
+      location: location.trim(),
+      website: website.trim(),
       dob,
     };
-    fetch(`http://localhost:5000/userupdate/${user?.email}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(editinfo),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("done", data);
+    
+    try {
+      const response = await fetch(`http://localhost:5001/userupdate?email=${encodeURIComponent(user?.email)}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(editinfo),
       });
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Profile update successful:', data);
+        
+        // Also save to localStorage as backup
+        const existingProfile = JSON.parse(localStorage.getItem('twiller_user_profile') || '{}');
+        const updatedProfile = { ...existingProfile, ...editinfo, email: user?.email };
+        localStorage.setItem('twiller_user_profile', JSON.stringify(updatedProfile));
+        
+        setsuccess("Profile updated successfully!");
+        setTimeout(() => {
+          setopen(false);
+          window.location.reload(); // Refresh to show updated data
+        }, 1500);
+      } else {
+        const errorData = await response.json().catch(() => ({ message: 'Unknown server error' }));
+        console.error('Server error response:', errorData);
+        throw new Error(errorData.message || errorData.error || `HTTP ${response.status}`);
+      }
+    } catch (err) {
+      console.error("Profile update error:", err);
+      
+      // Check if it's a network error (server unavailable)
+      if (err.message.includes('fetch') || err.name === 'TypeError') {
+        // Fallback: Save to localStorage when server is unavailable
+        try {
+          const existingProfile = JSON.parse(localStorage.getItem('twiller_user_profile') || '{}');
+          const updatedProfile = { ...existingProfile, ...editinfo, email: user?.email };
+          localStorage.setItem('twiller_user_profile', JSON.stringify(updatedProfile));
+          
+          // Trigger a storage event to update other components
+          window.dispatchEvent(new Event('storage'));
+          
+          setsuccess("Profile updated successfully! (Saved locally)");
+          setTimeout(() => {
+            setopen(false);
+            window.location.reload();
+          }, 1500);
+        } catch (storageErr) {
+          seterror("Failed to save profile. Please try again.");
+        }
+      } else {
+        seterror(err.message || "Failed to update profile. Please try again.");
+      }
+    }
+    
+    setloading(false);
   };
   return (
     <div>
@@ -112,48 +188,79 @@ const Editprofile = ({ user, loggedinuser }) => {
               <CloseIcon />
             </IconButton>
             <h2 className="header-title">Edit Profile</h2>
-            <button className="save-btn" onClick={handlesave}>Save</button>
+            <button 
+              className="save-btn" 
+              onClick={handlesave}
+              disabled={loading}
+            >
+              {loading ? "Saving..." : "Save"}
+            </button>
           </div>
           <form className="fill-content">
+            {error && <div className="error-message">{error}</div>}
+            {success && <div className="success-message">{success}</div>}
+            
             <TextField
               className="text-field"
               fullWidth
               label="Name"
-              id="fullWidth"
+              id="name-field"
               variant="filled"
+              value={name}
               onChange={(e) => setname(e.target.value)}
-              deafultValue={loggedinuser[0]?.name ? loggedinuser[0].name : ""}
+              placeholder="Enter your display name"
+              inputProps={{ maxLength: 50 }}
+            />
+            
+            <TextField
+              className="text-field"
+              fullWidth
+              label="Username"
+              id="username-field"
+              variant="filled"
+              value={username}
+              onChange={(e) => setusername(e.target.value)}
+              placeholder="Enter your username"
+              helperText="Username can only contain letters, numbers, and underscores"
+              inputProps={{ maxLength: 15 }}
             />
             <TextField
               className="text-field"
               fullWidth
               label="Bio"
-              id="fullWidth"
+              id="bio-field"
               variant="filled"
+              value={bio}
               onChange={(e) => setbio(e.target.value)}
-              deafultValue={loggedinuser[0]?.bio ? loggedinuser[0].bio : ""}
+              placeholder="Tell the world about yourself"
+              multiline
+              rows={3}
+              inputProps={{ maxLength: 160 }}
+              helperText={`${bio.length}/160 characters`}
             />
+            
             <TextField
               className="text-field"
               fullWidth
               label="Location"
-              id="fullWidth"
+              id="location-field"
               variant="filled"
+              value={location}
               onChange={(e) => setlocation(e.target.value)}
-              deafultValue={
-                loggedinuser[0]?.location ? loggedinuser[0].location : ""
-              }
+              placeholder="Where are you located?"
+              inputProps={{ maxLength: 30 }}
             />
+            
             <TextField
               className="text-field"
               fullWidth
               label="Website"
-              id="fullWidth"
+              id="website-field"
               variant="filled"
+              value={website}
               onChange={(e) => setwebsite(e.target.value)}
-              deafultValue={
-                loggedinuser[0]?.website ? loggedinuser[0].website : ""
-              }
+              placeholder="https://yourwebsite.com"
+              inputProps={{ maxLength: 100 }}
             />
           </form>
           <div className="birthdate-section">

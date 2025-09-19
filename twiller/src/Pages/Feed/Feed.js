@@ -2,51 +2,128 @@ import React, { useEffect, useState } from "react";
 import "./Feed.css";
 import Posts from "./Posts/Posts";
 import Tweetbox from "./Tweetbox/Tweetbox";
+import { useNotification } from "../../context/NotificationContext";
+import { useUserAuth } from "../../context/UserAuthContext";
+import { useSocket } from "../../context/SocketContext";
+
 const Feed = () => {
   const [post, setpost] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { showNotification } = useNotification();
+  const { user } = useUserAuth();
+  const socket = useSocket();
 
-  useEffect(() => {
-    fetch("http://localhost:5000/post")
-      .then((res) => res.json())
-      .then((data) => {
-        setpost(data);
-      })
+  // Fetch posts from server
+  const fetchPosts = async () => {
+    try {
+      setLoading(true);
+      setError(null);
       
-  },[post]);
-  // console.log(post)
-  // const data = [
-  //   {
-  //     _id: "1",
-  //     name: "Jane Doe",
-  //     username: "jane_doe",
-  //     profilePhoto: "https://example.com/profiles/jane.jpg",
-  //     post: "Exploring the new features in JavaScript! 🚀 #coding #JavaScript",
-  //     photo: "https://example.com/posts/javascript.png",
-  //   },
-  //   {
-  //     _id: "2",
-  //     name: "John Smith",
-  //     username: "johnsmith",
-  //     profilePhoto: "https://example.com/profiles/john.jpg",
-  //     post: "Just finished a great workout session! 💪 #fitness #health",
-  //     photo: "https://example.com/posts/workout.png",
-  //   },
-  //   {
-  //     _id: "3",
-  //     name: "Alice Johnson",
-  //     username: "alicejohnson",
-  //     profilePhoto: "https://example.com/profiles/alice.jpg",
-  //     post: "Loving the new features in CSS! #webdevelopment #design",
-  //     photo: "https://example.com/posts/css.png",
-  //   },
-  // ];
-  // setpost(data);
+      // Use the new endpoint that returns real interaction data
+      const url = "http://localhost:5001/posts";
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      setpost(data);
+      
+      // Check for new tweets and show notifications
+      data.forEach(tweet => {
+        showNotification(tweet);
+      });
+    } catch (err) {
+      console.error("Failed to fetch posts:", err.message);
+      setpost([]);
+      setError("Unable to load posts. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Initial fetch
+  useEffect(() => {
+    fetchPosts();
+  }, [user?.email]); // Re-fetch when user changes
+  
+  // Listen for real-time updates
+  useEffect(() => {
+    if (!socket) return;
+    
+    // Listen for new tweets
+    socket.on('new-tweet', (newTweet) => {
+      setpost(prevPosts => [newTweet, ...prevPosts]);
+      showNotification(newTweet);
+    });
+    
+    // Listen for likes
+    socket.on('post-liked', (updatedPost) => {
+      setpost(prevPosts => 
+        prevPosts.map(post => 
+          post._id === updatedPost._id ? updatedPost : post
+        )
+      );
+    });
+    
+    // Listen for reshares
+    socket.on('post-reshared', (updatedPost) => {
+      setpost(prevPosts => 
+        prevPosts.map(post => 
+          post._id === updatedPost._id ? updatedPost : post
+        )
+      );
+    });
+    
+    return () => {
+      socket.off('new-tweet');
+      socket.off('post-liked');
+      socket.off('post-reshared');
+    };
+  }, [socket, showNotification]);
+
   return (
     <div className="feed">
       <div className="feed__header">
         <h2>Home</h2>
       </div>
       <Tweetbox />
+      
+      {loading && (
+        <div className="loading-message">
+          <p>Loading posts...</p>
+        </div>
+      )}
+      
+      {error && (
+        <div className="error-message">
+          <p>{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="retry-button"
+            style={{
+              marginTop: '10px',
+              padding: '8px 16px',
+              backgroundColor: '#1d9bf0',
+              color: 'white',
+              border: 'none',
+              borderRadius: '20px',
+              cursor: 'pointer'
+            }}
+          >
+            Retry
+          </button>
+        </div>
+      )}
+      
+      {!loading && !error && post.length === 0 && (
+        <div className="empty-state">
+          <p>No posts yet. Be the first to tweet!</p>
+        </div>
+      )}
+      
       {post.map((p) => (
         <Posts key={p._id} p={p} />
       ))}

@@ -1,0 +1,139 @@
+.poll-creator {
+  border: 1px solid var(--border-color, #38444d);
+  border-radius: 16px;
+  margin: 12px 0;
+  background: var(--secondary-bg, #16181c);
+}
+
+.poll-creator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color, #38444d);
+  font-weight: bold;
+  color: var(--text-color, #e7e9ea);
+}
+
+.poll-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-color, #e7e9ea);
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poll-close-btn:hover {
+  background-color: var(--hover-color, rgba(239, 243, 244, 0.1));
+}
+
+.poll-options {
+  padding: 16px;
+}
+
+.poll-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.poll-option-input {
+  flex: 1;
+  background: var(--primary-bg, #15202b);
+  border: 1px solid var(--border-color, #38444d);
+  border-radius: 20px;
+  padding: 12px 16px;
+  color: var(--text-color, #e7e9ea);
+  font-size: 15px;
+  outline: none;
+}
+
+.poll-option-input:focus {
+  border-color: var(--twitter-color, #1da1f2);
+}
+
+.poll-option-input::placeholder {
+  color: var(--text-secondary, #71767b);
+}
+
+.remove-option-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary, #71767b);
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.remove-option-btn:hover {
+  background-color: rgba(244, 33, 46, 0.1);
+  color: #f4212e;
+}
+
+.add-option-btn {
+  background: none;
+  border: 1px dashed var(--border-color, #38444d);
+  border-radius: 20px;
+  padding: 12px 16px;
+  color: var(--twitter-color, #1da1f2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+
+.add-option-btn:hover {
+  background-color: rgba(29, 161, 242, 0.1);
+  border-color: var(--twitter-color, #1da1f2);
+}
+
+.poll-settings {
+  padding: 16px;
+  border-top: 1px solid var(--border-color, #38444d);
+}
+
+.poll-duration {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.poll-duration label {
+  color: var(--text-color, #e7e9ea);
+  font-weight: 500;
+  min-width: 80px;
+}
+
+.duration-select {
+  background: var(--primary-bg, #15202b);
+  border: 1px solid var(--border-color, #38444d);
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: var(--text-color, #e7e9ea);
+  font-size: 15px;
+  cursor: pointer;
+  outline: none;
+}
+
+.duration-select:focus {
+  border-color: var(--twitter-color, #1da1f2);
+}
+
+.duration-select option {
+  background: var(--primary-bg, #15202b);
+  color: var(--text-color, #e7e9ea);
+}

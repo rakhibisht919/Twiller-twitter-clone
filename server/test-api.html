@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twiller API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f8fa;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 { color: #1da1f2; }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .warning { background-color: #fff3cd; border-color: #ffeaa7; }
+        button {
+            background-color: #1da1f2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #1991da; }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .loading { opacity: 0.6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Twiller API Diagnostics</h1>
+        
+        <div class="test-section">
+            <h3>Server Health Check</h3>
+            <button onclick="testServerHealth()">Test Server</button>
+            <div id="serverResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Posts API Test</h3>
+            <button onclick="testPostsAPI()">Test Posts Loading</button>
+            <div id="postsResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Users API Test</h3>
+            <button onclick="testUsersAPI()">Test User Search</button>
+            <div id="usersResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>CORS Test</h3>
+            <button onclick="testCORS()">Test Cross-Origin Requests</button>
+            <div id="corsResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>All APIs Test</h3>
+            <button onclick="runAllTests()">Run All Tests</button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5001';
+        
+        function setLoading(elementId, isLoading) {
+            const element = document.getElementById(elementId);
+            element.className = isLoading ? 'result loading' : 'result';
+            if (isLoading) element.textContent = 'Testing...';
+        }
+        
+        function setResult(elementId, message, type = 'success') {
+            const element = document.getElementById(elementId);
+            element.className = `result ${type}`;
+            element.textContent = message;
+        }
+        
+        async function testServerHealth() {
+            setLoading('serverResult', true);
+            try {
+                const response = await fetch(`${API_BASE}/`);
+                const data = await response.text();
+                
+                if (response.ok) {
+                    setResult('serverResult', `✅ Server is running!\nResponse: ${data}`, 'success');
+                } else {
+                    setResult('serverResult', `❌ Server error: ${response.status}\n${data}`, 'error');
+                }
+            } catch (error) {
+                setResult('serverResult', `❌ Cannot connect to server!\nError: ${error.message}\n\nMake sure the server is running on port 5001`, 'error');
+            }
+        }
+        
+        async function testPostsAPI() {
+            setLoading('postsResult', true);
+            try {
+                const response = await fetch(`${API_BASE}/posts`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const data = await response.json();
+                const postsCount = Array.isArray(data) ? data.length : 0;
+                
+                if (postsCount > 0) {
+                    setResult('postsResult', `✅ Posts API working!\nFound ${postsCount} posts\n\nSample post:\n${JSON.stringify(data[0], null, 2)}`, 'success');
+                } else {
+                    setResult('postsResult', `⚠️ Posts API working but no posts found\nResponse: ${JSON.stringify(data, null, 2)}`, 'warning');
+                }
+            } catch (error) {
+                setResult('postsResult', `❌ Posts API failed!\nError: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testUsersAPI() {
+            setLoading('usersResult', true);
+            try {
+                // Test different user-related endpoints
+                const endpoints = [
+                    '/loggedinuser?email=test@example.com',
+                    '/suggested-users',
+                    '/search?q=test'
+                ];
+                
+                let results = [];
+                
+                for (let endpoint of endpoints) {
+                    try {
+                        const response = await fetch(`${API_BASE}${endpoint}`);
+                        const data = await response.json();
+                        results.push(`${endpoint}: ${response.ok ? '✅' : '❌'} (${response.status})`);
+                    } catch (err) {
+                        results.push(`${endpoint}: ❌ ${err.message}`);
+                    }
+                }
+                
+                setResult('usersResult', `User API Tests:\n${results.join('\n')}`, 'success');
+            } catch (error) {
+                setResult('usersResult', `❌ User API test failed!\nError: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testCORS() {
+            setLoading('corsResult', true);
+            try {
+                const response = await fetch(`${API_BASE}/posts`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                if (response.ok) {
+                    setResult('corsResult', '✅ CORS is properly configured!\nNo cross-origin issues detected.', 'success');
+                } else {
+                    setResult('corsResult', `❌ CORS or server issue: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                if (error.message.includes('CORS')) {
+                    setResult('corsResult', `❌ CORS Error detected!\nError: ${error.message}\n\nThis means the server is not allowing requests from your frontend.`, 'error');
+                } else {
+                    setResult('corsResult', `❌ Network Error: ${error.message}`, 'error');
+                }
+            }
+        }
+        
+        async function runAllTests() {
+            await testServerHealth();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testPostsAPI();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testUsersAPI();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testCORS();
+        }
+        
+        // Auto-run server health check on page load
+        window.addEventListener('load', testServerHealth);
+    </script>
+</body>
+</html>

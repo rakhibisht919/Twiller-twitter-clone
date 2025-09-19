@@ -1,0 +1,13 @@
+.theme-toggle {
+  color: var(--text-color) !important;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--hover-color) !important;
+  transform: scale(1.1);
+}
+
+.theme-toggle svg {
+  font-size: 1.2rem;
+}

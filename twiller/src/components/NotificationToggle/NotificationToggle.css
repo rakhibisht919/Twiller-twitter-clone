@@ -1,0 +1,26 @@
+.notification-toggle-container {
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background-color: var(--secondary-bg);
+  margin: 16px 0;
+  transition: all 0.3s ease;
+}
+
+.notification-toggle-container:hover {
+  background-color: var(--hover-color);
+}
+
+.notification-description {
+  display: block;
+  margin-top: 8px;
+  margin-left: 32px;
+  color: var(--text-secondary) !important;
+}
+
+.permission-warning {
+  display: block;
+  margin-top: 8px;
+  margin-left: 32px;
+  color: var(--error-color) !important;
+}

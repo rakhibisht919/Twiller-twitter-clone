@@ -1,0 +1,296 @@
+.login-history-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding: 16px 0;
+}
+
+.page-title {
+  flex-grow: 1;
+  margin-left: 16px !important;
+  color: #1976d2;
+  font-weight: 600 !important;
+}
+
+.back-btn {
+  color: #1976d2 !important;
+}
+
+.refresh-btn {
+  color: #1976d2 !important;
+  border-color: #1976d2 !important;
+}
+
+.error-alert {
+  margin-bottom: 24px !important;
+}
+
+/* Statistics Cards */
+.stats-grid {
+  margin-bottom: 24px !important;
+}
+
+.stat-card {
+  height: 100%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%) !important;
+}
+
+.stat-content {
+  display: flex;
+  align-items: center;
+  padding: 20px !important;
+  gap: 16px;
+}
+
+.stat-icon {
+  font-size: 48px !important;
+}
+
+.stat-icon.success {
+  color: #4caf50 !important;
+}
+
+.stat-icon.error {
+  color: #f44336 !important;
+}
+
+.stat-icon.warning {
+  color: #ff9800 !important;
+}
+
+.stat-icon.info {
+  color: #2196f3 !important;
+}
+
+/* Controls */
+.controls-card {
+  margin-bottom: 24px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+  border-radius: 12px !important;
+}
+
+/* Login History Card */
+.login-history-card {
+  box-shadow: 0 2px 16px rgba(0,0,0,0.1) !important;
+  border-radius: 12px !important;
+  background: white !important;
+}
+
+.history-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1976d2 !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+}
+
+.history-subtitle {
+  margin-bottom: 16px !important;
+}
+
+.history-list {
+  padding: 0 !important;
+}
+
+.history-item {
+  padding: 16px !important;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.history-item:hover {
+  background-color: rgba(25, 118, 210, 0.04) !important;
+}
+
+.history-item.success {
+  border-left: 4px solid #4caf50;
+  background-color: rgba(76, 175, 80, 0.02) !important;
+}
+
+.history-item.failed {
+  border-left: 4px solid #f44336;
+  background-color: rgba(244, 67, 54, 0.02) !important;
+}
+
+.history-primary {
+  width: 100%;
+}
+
+.device-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.device-info {
+  font-weight: 500 !important;
+  color: #333 !important;
+}
+
+.status-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.browser-chip {
+  font-size: 11px !important;
+  height: 24px !important;
+}
+
+.auth-chip {
+  font-size: 10px !important;
+  height: 22px !important;
+  color: #666 !important;
+  border-color: #666 !important;
+}
+
+.history-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.timestamp, .ip-address, .timezone, .failure-reason {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px !important;
+  color: #666 !important;
+}
+
+.failure-reason {
+  color: #f44336 !important;
+  font-weight: 500 !important;
+}
+
+/* No History State */
+.no-history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.no-history-icon {
+  font-size: 64px !important;
+  color: #ccc !important;
+  margin-bottom: 16px;
+}
+
+/* Security Notice */
+.security-notice {
+  margin-top: 24px !important;
+  border-radius: 12px !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-history-page {
+    padding: 16px;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .device-info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .status-badges {
+    align-self: flex-end;
+  }
+  
+  .stat-content {
+    padding: 16px !important;
+  }
+  
+  .stat-icon {
+    font-size: 36px !important;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .login-history-page {
+    background-color: #121212;
+  }
+  
+  .stat-card {
+    background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%) !important;
+  }
+  
+  .login-history-card {
+    background: #1e1e1e !important;
+  }
+  
+  .device-info {
+    color: #e0e0e0 !important;
+  }
+  
+  .timestamp, .ip-address, .timezone {
+    color: #b0b0b0 !important;
+  }
+}
+
+/* Animation for loading states */
+.history-item {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom scrollbar for history list */
+.history-list {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.history-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.history-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
