@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../../context/UserAuthContext";
 import useLoggedinuser from "../../../hooks/useLoggedinuser";
 import { useSocket } from "../../../context/SocketContext";
+import API_BASE_URL from "../../../config/api";
 
 const Posts = ({ p, isProfileView = false }) => {
   const navigate = useNavigate();
@@ -96,7 +97,7 @@ const Posts = ({ p, isProfileView = false }) => {
       setLikeCount(prev => liked ? prev - 1 : prev + 1);
       
       // Send to server
-      const response = await fetch('http://localhost:5001/post/like', {
+      const response = await fetch(`${API_BASE_URL}/post/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -130,7 +131,7 @@ const Posts = ({ p, isProfileView = false }) => {
       setRetweetCount(prev => retweeted ? prev - 1 : prev + 1);
       
       // Send to server
-      const response = await fetch('http://localhost:5001/post/reshare', {
+      const response = await fetch(`${API_BASE_URL}/post/reshare`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -165,7 +166,7 @@ const Posts = ({ p, isProfileView = false }) => {
 
     setIsCommenting(true);
     try {
-      const response = await fetch('http://localhost:5001/post/comment', {
+      const response = await fetch(`${API_BASE_URL}/post/comment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -247,7 +248,7 @@ const Posts = ({ p, isProfileView = false }) => {
       
       // Optionally send to server for persistence
       try {
-        await fetch('http://localhost:5001/post/bookmark', {
+        await fetch(`${API_BASE_URL}/post/bookmark`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
