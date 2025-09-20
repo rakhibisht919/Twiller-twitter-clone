@@ -1,8 +1,8 @@
 // API configuration
-// Use environment variable for flexibility, fallback to localhost
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+// Use environment variable for flexibility, fallback to deployed backend
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://twiller-twitter-clone-0y03.onrender.com';
 
-// For mobile testing, you can also use the network IP directly
-// const API_BASE_URL = 'http://192.168.29.125:5001';
+// Fallback to localhost for development
+// const API_BASE_URL = 'http://localhost:5001';
 
 export default API_BASE_URL;

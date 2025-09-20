@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Feed.css";
 import Posts from "./Posts/Posts";
 import Tweetbox from "./Tweetbox/Tweetbox";
+import API_BASE_URL from "../../config/api";
 import { useNotification } from "../../context/NotificationContext";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { useSocket } from "../../context/SocketContext";
@@ -14,16 +15,13 @@ const Feed = () => {
   const { user } = useUserAuth();
   const socket = useSocket();
 
-  // Fetch posts from server
+  // Fetch posts from deployed backend
   const fetchPosts = async () => {
     try {
       setLoading(true);
       setError(null);
       
-      // Use the new endpoint that returns real interaction data
-      const url = "http://localhost:5001/posts";
-      const response = await fetch(url);
-      
+      const response = await fetch(`${API_BASE_URL}/posts`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -47,6 +45,7 @@ const Feed = () => {
   // Initial fetch
   useEffect(() => {
     fetchPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.email]); // Re-fetch when user changes
   
   // Listen for real-time updates

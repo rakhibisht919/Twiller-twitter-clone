@@ -1,6 +1,7 @@
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // Read Firebase config from environment variables
 const firebaseConfig = {
@@ -32,10 +33,12 @@ if (!firebaseConfig.apiKey) {
 
 let app;
 let auth;
+let db;
 
 try {
   app = initializeApp(firebaseConfig);
   auth = getAuth(app);
+  db = getFirestore(app);
   console.log('Firebase initialized successfully');
 } catch (error) {
   console.error('Firebase initialization failed:', error);
@@ -45,8 +48,9 @@ try {
     signOut: () => Promise.resolve(),
     onAuthStateChanged: () => () => {}
   };
+  db = null;
 }
 
-export { auth };
+export { auth, db };
 export default app;
 // const analytics = getAnalytics(app);

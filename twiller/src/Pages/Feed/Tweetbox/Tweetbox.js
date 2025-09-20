@@ -11,6 +11,7 @@ import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import axios from "axios";
 import { useUserAuth } from "../../../context/UserAuthContext";
 import useLoggedinuser from "../../../hooks/useLoggedinuser";
+import API_BASE_URL from "../../../config/api";
 import VideoPlayer from "../../../components/VideoPlayer/VideoPlayer";
 import EmojiPicker from "../../../components/ComposePost/EmojiPicker";
 import LocationPicker from "../../../components/ComposePost/LocationPicker";
@@ -208,7 +209,7 @@ const Tweetbox = () => {
 
       if (user?.providerData[0]?.providerId === "password") {
         try {
-          const response = await fetch(`http://localhost:5001/loggedinuser?email=${email}`);
+          const response = await fetch(`${API_BASE_URL}/loggedinuser?email=${email}`);
           if (response.ok) {
             const data = await response.json();
             displayName = data[0]?.name || user?.displayName || email?.split("@")[0];
@@ -247,7 +248,7 @@ const Tweetbox = () => {
       };
 
       try {
-        const response = await fetch("http://localhost:5001/post", {
+        const response = await fetch(`${API_BASE_URL}/post`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -274,19 +275,9 @@ const Tweetbox = () => {
           throw new Error("Failed to post tweet");
         }
       } catch (err) {
-        console.log("Server not available, tweet saved locally:", err.message);
-        setSuccess("Tweet saved locally (server not available)");
-        setpost("");
-        setimageurl("");
-        setvideourl("");
-        setSelectedGif(null);
-        setMediaType("");
-        setCharCount(0);
-        setSelectedLocation(null);
-        setHasPoll(false);
-        setPollOptions(['', '']);
-        setPollDuration('1 day');
-        setTimeout(() => setSuccess(""), 3000);
+        console.error("Failed to post tweet:", err.message);
+        setError("Failed to post tweet. Please try again.");
+        setTimeout(() => setError(""), 3000);
       }
     } catch (err) {
       setError("Failed to post tweet. Please try again.");
