@@ -24,6 +24,7 @@ import { NotificationProvider } from "./context/NotificationContext";
 import { BookmarkProvider } from "./context/BookmarkContext";
 import { SocketProvider } from "./context/SocketContext";
 import Bookmark from "./Pages/Bookmark/Bookmark";
+import Debug from "./Pages/Debug/Debug";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
                 <Route path="settings/*" element={<Settings />} />
                 <Route path="topics" element={<Topics />} />
                 <Route path="terms" element={<Terms />} />
+                <Route path="debug" element={<Debug />} />
               </Route>
             </Routes>
               </div>
