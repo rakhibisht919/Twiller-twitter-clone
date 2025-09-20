@@ -10,6 +10,7 @@
 [build.environment]
   NODE_VERSION = "18"
   NPM_VERSION = "9"
+  REACT_APP_API_URL = "https://twiller-twitter-clone-0y03.onrender.com"
 
 [[headers]]
   for = "/*"
