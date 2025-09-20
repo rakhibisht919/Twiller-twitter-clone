@@ -32,6 +32,8 @@ const Posts = ({ p, isProfileView = false }) => {
   const [showCommentModal, setShowCommentModal] = useState(false);
   const [commentText, setCommentText] = useState('');
   const [isCommenting, setIsCommenting] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState([]);
   
   const currentUserId = user?.email || user?.uid;
   const currentUsername = loggedinuser[0]?.username || user?.email?.split('@')[0];
@@ -161,6 +163,26 @@ const Posts = ({ p, isProfileView = false }) => {
     setShowCommentModal(true);
   };
 
+  const fetchComments = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/post/${_id}/comments`);
+      if (response.ok) {
+        const commentsData = await response.json();
+        setComments(commentsData);
+      }
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+    }
+  };
+
+  const toggleComments = (e) => {
+    e.stopPropagation();
+    if (!showComments) {
+      fetchComments();
+    }
+    setShowComments(!showComments);
+  };
+
   const handleCommentSubmit = async () => {
     if (!commentText.trim() || isCommenting) return;
 
@@ -183,6 +205,10 @@ const Posts = ({ p, isProfileView = false }) => {
       if (response.ok) {
         setCommentText('');
         setShowCommentModal(false);
+        // Refresh comments if they're being shown
+        if (showComments) {
+          fetchComments();
+        }
         // The socket listener will handle updating the comment count
       } else {
         throw new Error('Failed to post comment');
@@ -316,10 +342,20 @@ const Posts = ({ p, isProfileView = false }) => {
               className={`post__action-btn reply-btn`}
               onClick={handleReply}
               size="small"
+              title="Reply"
             >
               <ChatBubbleOutlineIcon fontSize="small" />
             </IconButton>
-            {replyCount > 0 && <span className="post__action-count">{formatCount(replyCount)}</span>}
+            {replyCount > 0 && (
+              <span 
+                className="post__action-count"
+                onClick={toggleComments}
+                style={{ cursor: 'pointer', textDecoration: showComments ? 'underline' : 'none' }}
+                title="View comments"
+              >
+                {formatCount(replyCount)}
+              </span>
+            )}
           </div>
           
           <div className="post__action">
@@ -366,6 +402,42 @@ const Posts = ({ p, isProfileView = false }) => {
         </div>
       </div>
     </div>
+    
+    {/* Comments Section */}
+    {showComments && comments.length > 0 && (
+      <div className="post__comments" style={{ 
+        marginLeft: '60px', 
+        paddingLeft: '20px', 
+        borderLeft: '2px solid #e1e8ed',
+        marginTop: '10px' 
+      }}>
+        <h4 style={{ fontSize: '14px', color: '#657786', marginBottom: '10px' }}>Comments</h4>
+        {comments.map((comment, index) => (
+          <div key={index} style={{ 
+            marginBottom: '15px', 
+            padding: '10px', 
+            backgroundColor: '#f7f9fa', 
+            borderRadius: '12px' 
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+              <Avatar 
+                src={comment.commenterPhoto || '/default-avatar.png'} 
+                sx={{ width: 24, height: 24, marginRight: 1 }} 
+              />
+              <span style={{ fontWeight: 'bold', fontSize: '14px' }}>
+                {comment.commenterName || comment.username}
+              </span>
+              <span style={{ color: '#657786', fontSize: '12px', marginLeft: '8px' }}>
+                @{comment.username}
+              </span>
+            </div>
+            <p style={{ margin: '0', fontSize: '14px', color: '#14171a' }}>
+              {comment.comment}
+            </p>
+          </div>
+        ))}
+      </div>
+    )}
     
     {/* Comment Modal */}
     <Dialog open={showCommentModal} onClose={() => setShowCommentModal(false)} maxWidth="sm" fullWidth>
